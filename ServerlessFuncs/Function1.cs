@@ -71,5 +71,19 @@ namespace ServerlessFuncs
 
             return new OkObjectResult(todo);
         }
+
+        [FunctionName("DeleteTodo")]
+        public static IActionResult DeleteTodo(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "todo/{id}")]HttpRequest req,
+            TraceWriter log, string id)
+        {
+            var todo = items.FirstOrDefault(t => t.Id == id);
+            if (todo == null)
+            {
+                return new NotFoundResult();
+            }
+            items.Remove(todo);
+            return new OkResult();
+        }
     }
 }
