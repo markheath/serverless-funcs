@@ -7,6 +7,7 @@ using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ServerlessFuncs
 {
@@ -24,6 +25,27 @@ namespace ServerlessFuncs
 
             var todo = new Todo() { TaskDescription = input.TaskDescription };
             items.Add(todo);
+            return new OkObjectResult(todo);
+        }
+
+        [FunctionName("GetTodos")]
+        public static IActionResult GetTodos(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "todo")]HttpRequest req, TraceWriter log)
+        {
+            log.Info("Getting todo list items");
+            return new OkObjectResult(items);
+        }
+
+        [FunctionName("GetTodoById")]
+        public static IActionResult GetTodoById(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "todo/{id}")]HttpRequest req, 
+            TraceWriter log, string id)
+        {
+            var todo = items.FirstOrDefault(t => t.Id == id);
+            if (todo == null)
+            {
+                return new NotFoundResult();
+            }
             return new OkObjectResult(todo);
         }
     }
