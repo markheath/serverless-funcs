@@ -27,13 +27,18 @@
 
             <div class="form-check mb-2 mr-sm-2">
                 <label class="form-check-label">
-                    <input class="form-check-input" v-model="todo.IsCompleted" type="checkbox">
-                    <span v-bind:class="{ completed: todo.IsCompleted }">{{todo.TaskDescription}}</span>
+                    <input class="form-check-input" v-model="todo.isCompleted" type="checkbox" @change="updateTodo(todo)">
+                    <span v-bind:class="{ completed: todo.isCompleted }">{{todo.taskDescription}}</span>
                 </label>
             </div>
-            <a v-if="todo.IsCompleted" @click="deleteTodo(todo)"><i class="fa fa-trash"></i></a>
+            <a v-if="todo.isCompleted" @click="deleteTodo(todo)"><i class="fa fa-trash"></i></a>
                 
             </button>
+        </div>
+        <div class="row" v-if="error">
+            <div class="alert alert-danger" role="alert">
+                {{error}}
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
