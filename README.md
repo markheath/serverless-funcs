@@ -28,5 +28,6 @@ docker build -t serverlessfuncs:v1
 And to run it
 
 ```
-docker run serverlessfuncs:v1 -e AzureWebJobsStorage='<<storage-account-connection-string>>'
+$connStr = az storage account show-connection-string -g myResGrp -n myStorageAccount -o tsv
+docker run -e AzureWebJobsStorage=$connStr -p 3001:80 serverlessfuncs:v1
 ```
