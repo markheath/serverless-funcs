@@ -10,6 +10,7 @@ var app = new Vue({
     methods: {
         createTodo: function() {
             fetch(`${baseAddress}/api/todo`, { method: "POST",
+                credentials: "same-origin",
                 body: JSON.stringify({ taskDescription: this.newTask} )})
                 .then(response => response.json())
                 .then(json => {
@@ -20,7 +21,8 @@ var app = new Vue({
         },
         deleteTodo: function(todo) {
             var todos = this.todos;
-            fetch(`${baseAddress}/api/todo/${todo.id}`, { method: "DELETE"})
+            fetch(`${baseAddress}/api/todo/${todo.id}`, { method: "DELETE",
+                credentials: "same-origin"})
                 .then(function() {
                     var index = todos.indexOf(todo);
                     if (index > -1) {
@@ -32,12 +34,13 @@ var app = new Vue({
         updateTodo: function(todo) {
             const body = JSON.stringify({ isCompleted: todo.isCompleted });
             fetch(`${baseAddress}/api/todo/${todo.id}`, 
-                { method: "PUT", body: body})
+                { method: "PUT", body: body,
+                credentials: "same-origin"})
                 .catch(reason => this.error = `Failed to update item: ${reason}`);
         },     
     },
     mounted: function () {
-        fetch(`${baseAddress}/api/todo`)
+        fetch(`${baseAddress}/api/todo`, { credentials: "same-origin" })
             .then(response => response.json())
             .then(json => this.todos = json)
             .catch(reason => this.error = `Failed to fetch todos: ${reason}`);
