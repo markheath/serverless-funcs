@@ -6,14 +6,14 @@
         "methods": [ "GET" ],
         "route": "/"
       },
-      "backendUri": "https://serverlessfuncsbed6.blob.core.windows.net/website/index.html"
+      "backendUri": "%WEB_HOST%/index.html"
     },
     "proxyContent": {
       "matchCondition": {
         "methods": [ "GET" ],
         "route": "/content/{*restOfPath}"
       },
-      "backendUri": "https://serverlessfuncsbed6.blob.core.windows.net/website/content/{restOfPath}"
+      "backendUri": "%WEB_HOST%/content/{restOfPath}"
     }
   }
 }

@@ -11,7 +11,8 @@ To test locally with the Azure Storage emulator, you will need the following `lo
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "AzureWebJobsDashboard": "UseDevelopmentStorage=true",
-    "FUNCTIONS_WORKER_RUNTIME": "dotnet"
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "WEB_HOST": "https://serverlessfuncsbed6.blob.core.windows.net/website"
   },
   "Host": {
     "CORS": "*"
@@ -29,5 +30,5 @@ And to run it
 
 ```
 $connStr = az storage account show-connection-string -g myResGrp -n myStorageAccount -o tsv
-docker run -e AzureWebJobsStorage=$connStr -p 3001:80 serverlessfuncs:v1
+docker run -e AzureWebJobsStorage=$connStr -p 8080:80 serverlessfuncs:v1
 ```
