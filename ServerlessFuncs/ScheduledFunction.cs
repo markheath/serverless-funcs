@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Table;
 
 namespace ServerlessFuncs
@@ -11,7 +11,7 @@ namespace ServerlessFuncs
         [FunctionName("ScheduledFunction")]
         public static async Task Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer,
             [Table("todos", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
-            TraceWriter log)
+            ILogger log)
         {
             var query = new TableQuery<TodoTableEntity>();
             var segment = await todoTable.ExecuteQuerySegmentedAsync(query, null);
@@ -24,7 +24,7 @@ namespace ServerlessFuncs
                     deleted++;
                 }
             }
-            log.Info($"Deleted {deleted} items at {DateTime.Now}");
+            log.LogInformation($"Deleted {deleted} items at {DateTime.Now}");
         }
     }
 }
