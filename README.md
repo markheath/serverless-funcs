@@ -4,6 +4,8 @@ This project contains a simple Azure Functions REST-style API that can be used f
 It is the demo application for the [Microsoft Azure Developer: Create Serverless Applications](https://pluralsight.pxf.io/c/1192349/424552/7490?u=www%2Epluralsight%2Ecom%2Fcourses%2Fmicrosoft-azure-serverless-functions-create) Pluralsight course.
 There is also a Vue.js based web page that can be used as a simple test harness.
 
+**Note:** This has now been updated to use the Azure Functions v3 runtime, which is newer than the version shown in the course. However, the changes are minimal.
+
 To test locally with the Azure Storage emulator, you will need the following `local.settings.json` file to be set up:
 
 ```js
